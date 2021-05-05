@@ -4,10 +4,12 @@
 \alias{read_csv_char}
 \title{Read all columns as character}
 \usage{
-read_csv_char(path)
+read_csv_char(path, ...)
 }
 \arguments{
 \item{path}{file path}
+
+\item{...}{Other arguments for read_csv}
 }
 \value{
 A tibble

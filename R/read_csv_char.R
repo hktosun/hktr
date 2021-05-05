@@ -3,6 +3,7 @@
 #' Read all columns using read_csv of readr as character.
 #'
 #' @param path file path
+#' @param ... Other arguments for read_csv
 #'
 #' @return A tibble
 #' @export
@@ -10,7 +11,7 @@
 
 
 
-read_csv_char <- function(path){
-	df <- readr::read_csv(path, col_types = readr::cols(.default = readr::col_character()))
+read_csv_char <- function(path, ...){
+	df <- readr::read_csv(path, col_types = readr::cols(.default = readr::col_character()), ...)
 	df
 }
