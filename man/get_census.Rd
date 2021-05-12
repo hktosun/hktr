@@ -4,10 +4,16 @@
 \alias{get_census}
 \title{Get Census Data}
 \usage{
-get_census(variable, CENSUS_API_KEY = Sys.getenv("CENSUS_API_KEY"))
+get_census(
+  variable,
+  year = 2010,
+  CENSUS_API_KEY = Sys.getenv("CENSUS_API_KEY")
+)
 }
 \arguments{
 \item{variable}{Census variable}
+
+\item{year}{Census vintage}
 
 \item{CENSUS_API_KEY}{Census API Key}
 }

@@ -1,5 +1,5 @@
-create_url <- function(variable, county, CENSUS_API_KEY){
-	url <- paste0("https://api.census.gov/data/2010/dec/sf1?get=", variable, ",NAME&for=block:*&in=state:27%20county:", county,  "&key=", CENSUS_API_KEY)
+create_url <- function(year, variable, county, CENSUS_API_KEY){
+	url <- paste0("https://api.census.gov/data/", year, "/dec/sf1?get=", variable, ",NAME&for=block:*&in=state:27%20county:", county,  "&key=", CENSUS_API_KEY)
 }
 
 read_url <- function(url){
@@ -18,15 +18,18 @@ read_url <- function(url){
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @param variable Census variable
+#' @param year Census vintage
 #' @param CENSUS_API_KEY Census API Key
 #'
 #' @return A tibble of Census data.
 
 #' @export
 
-get_census <- function(variable, CENSUS_API_KEY = Sys.getenv("CENSUS_API_KEY")){
+get_census <- function(variable, year = 2010, CENSUS_API_KEY = Sys.getenv("CENSUS_API_KEY")){
 
-
+	if(!year %in% c(2010)){
+		stop("`year` should be 2010. 2020 will be made available later.")
+	}
 
 	if(CENSUS_API_KEY == "" | is.null(CENSUS_API_KEY) | is.na(CENSUS_API_KEY)){
 		stop("Provide a valid API Key.")
@@ -45,7 +48,7 @@ get_census <- function(variable, CENSUS_API_KEY = Sys.getenv("CENSUS_API_KEY")){
 
 	mn <- tidyr::expand_grid(id = 1:87, vars) %>%
 		dplyr::mutate(id = stringr::str_pad(2 * .data$id - 1, width = 3, side = "left", pad = "0")) %>%
-		dplyr::mutate(url = purrr::map2_chr(.data$id, .data$variable_code, ~create_url(.y, .x, CENSUS_API_KEY))) %>%
+		dplyr::mutate(url = purrr::map2_chr(.data$id, .data$variable_code, ~create_url(year, .y, .x, CENSUS_API_KEY))) %>%
 		dplyr::mutate(data = purrr::map(url, ~read_url(.x)))
 
 	mn <- mn %>%
