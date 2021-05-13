@@ -2,6 +2,7 @@
 
 export(count_frac)
 export(drop_outliers)
+export(get_acs)
 export(get_census)
 export(read_csv_char)
 importFrom(magrittr,"%>%")

@@ -1,6 +1,6 @@
 Package: hktr
 Title: Hasan K. Tosun's Personal R Package
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     person(given = "Hasan",
            family = "Tosun",
@@ -23,3 +23,5 @@ Imports:
     stringr,
     tibble,
     tidyr
+Depends: 
+    R (>= 2.10)
